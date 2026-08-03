@@ -53,14 +53,18 @@ const emit = defineEmits<{
 
 			</div>
 
-			<div class="slot autosave">
+			<div class="slot publishing">
 				<slot name="autosave">
 					<span class="placeholder">
 						[Autosave]
 					</span>
 				</slot>
+				<slot name="publish">
+					<span class="placeholder">
+						[Publish]
+					</span>
+				</slot>
 			</div>
-
 		</div>
 
 	</div>
@@ -121,7 +125,10 @@ const emit = defineEmits<{
 			gap: 0.25rem;
 		}
 
-		&.autosave {
+		&.publishing {
+			display: flex;
+			flex-flow: row nowrap;
+			gap: 2rem;
 			height: fit-content;
 			padding: 0.25rem;
 		}

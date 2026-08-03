@@ -803,6 +803,26 @@ onUnmounted(() => {
 				<DeckEditorAutosaveIndicator :changed="contentEdited" :changesSaved="changesSaved" />
 			</template>
 
+			<template v-slot:publish>
+
+				<GenericButton
+					variant="thin"
+					:theme="deckPublished ? 'blue' : 'green'"
+					:disabled="!editorReady"
+					@click="state.editor.modals.publish = true">
+
+					<template v-if="!deckPublished">
+						Publish
+					</template>
+
+					<template v-else>
+						Update
+					</template>
+
+				</GenericButton>
+
+			</template>
+
 			<template v-slot:colors>
 
 				<DeckEditorElementColorDropdown label="Card fill color" icon="fill"
