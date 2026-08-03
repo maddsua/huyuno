@@ -587,6 +587,7 @@ const duplicateDeck = async () => {
 	state.origin.deckID = null;
 	state.origin.created = new Date().toISOString();
 	state.origin.updated = state.origin.created;
+	state.content.meta.summary.name += ' - Copy';
 
 	router.push(`/decks/editor?collection_id=${collectionID}`);
 
@@ -595,8 +596,6 @@ const duplicateDeck = async () => {
 	//	ideally this should be handled by nextTick, but it doesn't fucking work,
 	//	as per usual in the world of javascript
 	setTimeout(updateAppTitle, 250);
-
-	state.editor.changes.meta = true;
 };
 
 const openPlayView = () => {
@@ -900,7 +899,7 @@ onUnmounted(() => {
 						@click="editorHistoryForward" />
 
 					<DeckEditorMenuEntry label="Discard local changes" icon="broom"
-						:disabled="!editorReady || !contentEdited" @click="dropLocalChanges" />
+						:disabled="!editorReady || !contentEdited || !deckPublished" @click="dropLocalChanges" />
 
 				</DeckEditorMenu>
 
