@@ -639,7 +639,10 @@ func (rslv *resolver) UpdateCardDeck(ctx context.Context, deckID uuid.UUID, para
 			return nil, &model.Error{Message: fmt.Sprintf("Invalid deck summary: %v", err)}
 		}
 
-		if count, err := tx.DeckNameExists(ctx, db_gen.DeckNameExistsParams{Name: params.Summary.Name}); err != nil {
+		if count, err := tx.DeckNameExists(ctx, db_gen.DeckNameExistsParams{
+			Name:   params.Summary.Name,
+			DeckID: db_types.NewNullUUID(deckID),
+		}); err != nil {
 			return nil, InternalError("sqlc.DeckNameExists", err)
 		} else if count != 0 {
 			return nil, &model.Error{Message: "A deck with the same name already exists"}
